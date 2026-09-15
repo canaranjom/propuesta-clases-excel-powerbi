@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✳️</text></svg>">
+<title>Tu Próxima Entrevista</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --paper:#F6F3F4; --surface:#FFFFFF; --surface-2:#EFEAEC;
+  --ink:#1E1820; --ink-2:#544B54; --ink-3:#877E86;
+  --rule:#E0D8DC; --rule-strong:#C6BAC1;
+  --plum:#6B2F5B; --plum-deep:#57254A; --plum-soft:#F0E4EC;
+  --slate:#2E5A66; --slate-soft:#DFEBEE;
+  --on-plum:#FBF7F9;
+  --shadow:0 1px 3px rgba(30,24,32,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#161219; --surface:#1E1922; --surface-2:#261F29;
+    --ink:#F0EAEE; --ink-2:#B3A8B1; --ink-3:#847A83;
+    --rule:#312A35; --rule-strong:#463D4A;
+    --plum:#D89AC4; --plum-deep:#E7B4D6; --plum-soft:#2A1B27;
+    --slate:#7FBECC; --slate-soft:#16292F;
+    --on-plum:#1B1119;
+    --shadow:0 1px 3px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#161219; --surface:#1E1922; --surface-2:#261F29;
+  --ink:#F0EAEE; --ink-2:#B3A8B1; --ink-3:#847A83;
+  --rule:#312A35; --rule-strong:#463D4A;
+  --plum:#D89AC4; --plum-deep:#E7B4D6; --plum-soft:#2A1B27;
+  --slate:#7FBECC; --slate-soft:#16292F;
+  --on-plum:#1B1119;
+  --shadow:0 1px 3px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink); margin:0;
+  font-family:"Karla",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.page{max-width:720px; margin:0 auto; padding:0 26px 90px}
+
+h1,h2,h3{font-family:"Fraunces","Georgia",serif; margin:0; text-wrap:balance}
+h1{font-size:clamp(2.15rem,6vw,3.1rem); font-weight:700; line-height:1.06; letter-spacing:-.018em}
+h2{font-size:clamp(1.35rem,3.4vw,1.75rem); font-weight:600; line-height:1.2; letter-spacing:-.01em}
+h3{font-size:1.06rem; font-weight:600; letter-spacing:-.004em}
+p{margin:0 0 1.05rem} p:last-child{margin-bottom:0}
+strong{font-weight:700}
+em{font-style:italic}
+a{color:var(--plum-deep)}
+
+.label{
+  font-family:"Karla",sans-serif; font-size:11.5px; font-weight:700;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--plum);
+}
+.muted{color:var(--ink-2)}
+
+header{padding:64px 0 0}
+header .label{display:block; margin-bottom:20px}
+header h1{margin-bottom:20px}
+header .stand{
+  font-size:1.16rem; color:var(--ink-2); line-height:1.55;
+  border-left:2px solid var(--plum); padding-left:18px; margin:0;
+}
+
+section{padding:42px 0 0}
+section > h2{margin-bottom:.85rem}
+.sect-label{display:block; margin-bottom:10px}
+
+hr{border:none; border-top:1px solid var(--rule); margin:44px 0 0}
+
+/* before / after */
+.gap{
+  display:grid; grid-template-columns:1fr; gap:0;
+  border:1px solid var(--rule); border-radius:5px; overflow:hidden;
+  background:var(--surface); box-shadow:var(--shadow); margin-top:22px;
+}
+@media(min-width:660px){.gap{grid-template-columns:1fr 1fr}}
+.gap > div{padding:22px 24px}
+.gap .now{background:var(--surface-2); color:var(--ink-2)}
+.gap .then{border-top:1px solid var(--rule)}
+@media(min-width:660px){.gap .then{border-top:none; border-left:1px solid var(--rule)}}
+.gap h3{margin-bottom:12px}
+.gap .now h3{color:var(--ink-2)}
+.gap .then h3{color:var(--plum)}
+.gap ul{margin:0; padding-left:17px; font-size:.95rem}
+.gap li{margin-bottom:.55rem}
+.gap li:last-child{margin-bottom:0}
+.gap .now li::marker{color:var(--ink-3)}
+.gap .then li::marker{color:var(--plum)}
+
+/* phase spine */
+.spine{margin:24px 0 0; padding:0; list-style:none; position:relative}
+.spine::before{
+  content:""; position:absolute; left:15px; top:14px; bottom:14px;
+  width:1px; background:var(--rule-strong);
+}
+.spine li{position:relative; padding:0 0 26px 52px}
+.spine li:last-child{padding-bottom:0}
+.spine .dot{
+  position:absolute; left:6px; top:3px; width:20px; height:20px; border-radius:50%;
+  background:var(--paper); border:1px solid var(--rule-strong);
+  display:flex; align-items:center; justify-content:center;
+  font-size:10.5px; font-weight:700; color:var(--ink-3);
+}
+.spine li:last-child .dot{background:var(--plum); border-color:var(--plum); color:var(--on-plum)}
+.spine .wk{
+  display:block; font-size:11.5px; font-weight:700; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-3); margin-bottom:3px;
+}
+.spine h3{margin-bottom:5px}
+.spine p{font-size:.95rem; color:var(--ink-2); margin:0}
+.spine .can{
+  display:block; margin-top:8px; font-size:.92rem; color:var(--ink);
+  background:var(--plum-soft); padding:8px 12px; border-radius:4px;
+}
+.spine .can b{color:var(--plum); font-weight:700}
+
+/* a week */
+.week{display:grid; grid-template-columns:1fr; gap:14px; margin-top:22px}
+@media(min-width:620px){.week{grid-template-columns:1fr 1fr}}
+.slot{
+  background:var(--surface); border:1px solid var(--rule); border-radius:5px;
+  padding:20px 22px; box-shadow:var(--shadow);
+}
+.slot .kind{
+  display:inline-block; font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:3px 8px; border-radius:3px; margin-bottom:10px;
+}
+.slot.sab .kind{background:var(--plum-soft); color:var(--plum)}
+.slot.vir .kind{background:var(--slate-soft); color:var(--slate)}
+.slot h3{margin-bottom:6px}
+.slot p{font-size:.94rem; color:var(--ink-2)}
+ul.notes{margin:20px 0 0; padding-left:18px}
+ul.notes li{font-size:.94rem; color:var(--ink-2); margin-bottom:.5rem}
+ul.notes li::marker{color:var(--slate)}
+ul.notes strong{color:var(--ink)}
+
+/* cost block */
+.cost{
+  display:flex; flex-wrap:wrap; margin:22px 0 0;
+  border:1px solid var(--rule); border-radius:5px; background:var(--surface);
+  box-shadow:var(--shadow); overflow:hidden;
+}
+.cost div{flex:1 1 140px; padding:18px 20px; border-right:1px solid var(--rule)}
+.cost div:last-child{border-right:none}
+.cost dt{font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  color:var(--ink-3); margin-bottom:5px}
+.cost dd{margin:0; font-family:"Fraunces",Georgia,serif; font-weight:600;
+  font-size:1.6rem; line-height:1.1; letter-spacing:-.015em; font-variant-numeric:tabular-nums}
+.cost dd small{display:block; font-family:"Karla",sans-serif; font-weight:400;
+  font-size:.78rem; color:var(--ink-2); letter-spacing:0; margin-top:3px}
+
+/* rules list */
+ol.rules{list-style:none; padding:0; margin:22px 0 0; counter-reset:r}
+ol.rules li{
+  counter-increment:r; position:relative; padding:14px 0 14px 40px;
+  border-top:1px solid var(--rule); font-size:.97rem;
+}
+ol.rules li:last-child{border-bottom:1px solid var(--rule)}
+ol.rules li::before{
+  content:counter(r); position:absolute; left:0; top:14px;
+  font-family:"Fraunces",Georgia,serif; font-weight:600; font-size:1rem; color:var(--plum);
+}
+ol.rules b{display:block; margin-bottom:2px}
+ol.rules span{color:var(--ink-2); font-size:.93rem}
+
+ul.plain{margin:16px 0 0; padding-left:18px}
+ul.plain li{margin-bottom:.5rem; font-size:.97rem}
+ul.plain li::marker{color:var(--plum)}
+
+.box{
+  background:var(--slate-soft); border-radius:5px; padding:20px 22px; margin:24px 0 0;
+  border-left:3px solid var(--slate);
+}
+.box h3{color:var(--slate); margin-bottom:.4rem}
+.box p{font-size:.96rem; margin-bottom:.7rem}
+
+.fine{font-size:.9rem; color:var(--ink-2); margin-top:14px}
+
+.ask{
+  margin:40px 0 0; padding:30px 28px; border-radius:6px;
+  background:var(--plum); color:var(--on-plum);
+}
+.ask h2{color:inherit; margin-bottom:.7rem}
+.ask p{color:inherit; opacity:.92; font-size:1rem}
+.ask .sign{margin-top:20px; font-family:"Fraunces",Georgia,serif; font-size:1.05rem; opacity:1}
+
+footer{margin-top:38px; padding-top:20px; border-top:1px solid var(--rule);
+  font-size:.86rem; color:var(--ink-3)}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <span class="label">Propuesta de clases · Excel y Power BI</span>
+  <h1>Tu próxima entrevista</h1>
+  <p class="stand">Te dijeron que faltaba manejo de dashboards y análisis. Eso tiene arreglo, tiene método y tiene fecha. Esto es lo que te propongo.</p>
+</header>
+
+<section>
+  <span class="label sect-label">Lo primero</span>
+  <h2>No te faltó un botón</h2>
+  <p>Nadie pierde una oferta por no saber dónde queda un menú. Lo que estaban midiendo era otra cosa: si te ponen una tabla desordenada y una pregunta del negocio —¿por qué cayeron las ventas en el sur?—, ¿sabés qué hacer con eso y sabés explicarlo en cinco minutos?</p>
+  <p>Eso no es talento, es método. Y el método se aprende en unos meses trabajando en serio. La buena noticia de tu entrevista es esa: <strong>lo que te faltó es exactamente el tipo de cosa que se puede cerrar con fecha de entrega.</strong></p>
+</section>
+
+<hr>
+
+<section>
+  <span class="label sect-label">El objetivo</span>
+  <h2>Dónde estás y dónde vas a estar</h2>
+  <div class="gap">
+    <div class="now">
+      <h3>Hoy</h3>
+      <ul>
+        <li>Excel básico: te defendés con fórmulas y tablas.</li>
+        <li>Power BI: nunca lo abriste.</li>
+        <li>Frente a un archivo sucio, no hay un orden claro de por dónde empezar.</li>
+        <li>Nada que mostrar cuando piden ejemplos de tu trabajo.</li>
+        <li>En la entrevista técnica, te bloqueás.</li>
+      </ul>
+    </div>
+    <div class="then">
+      <h3>En 15 semanas</h3>
+      <ul>
+        <li>Tomás un Excel desordenado y lo dejás listo para analizar.</li>
+        <li>Construís un dashboard completo en Power BI, sola, de principio a fin.</li>
+        <li>Encontrás el hallazgo y lo contás en 90 segundos.</li>
+        <li>Tenés un portafolio público con dos proyectos para poner en la hoja de vida.</li>
+        <li>Resolvés una prueba técnica de 60 minutos sin trabarte.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <span class="label sect-label">El camino</span>
+  <h2>Cuatro etapas, quince semanas</h2>
+  <p class="muted" style="font-size:.97rem">No vamos a hacer “tres meses de Excel y después vemos”. En la semana 4 ya estás en Power BI. Todo se trabaja sobre un mismo caso —una cadena de tiendas con sucursales en Bogotá, Medellín y Cali— que va creciendo contigo hasta convertirse en tu portafolio.</p>
+  <ol class="spine">
+    <li>
+      <span class="dot">1</span>
+      <span class="wk">Semanas 1–3</span>
+      <h3>Excel, pero solo lo que sirve</h3>
+      <p>Datos limpios, BUSCARX, tablas dinámicas y Power Query. Nada de funciones de adorno: únicamente lo que después alimenta un dashboard.</p>
+      <span class="can"><b>Al final podés:</b> dejar un archivo sucio listo y armar un tablero de KPI en una hoja.</span>
+    </li>
+    <li>
+      <span class="dot">2</span>
+      <span class="wk">Semanas 4–7</span>
+      <h3>Modelar</h3>
+      <p>Power BI Desktop desde el primer día. Modelo estrella, relaciones, tabla calendario y DAX. Es la parte más dura y la que más te va a diferenciar en una entrevista, por eso tiene una semana extra de práctica.</p>
+      <span class="can"><b>Al final podés:</b> explicar por qué una tabla plana rompe los porcentajes, y arreglarlo.</span>
+    </li>
+    <li>
+      <span class="dot">3</span>
+      <span class="wk">Semanas 8–12</span>
+      <h3>Visualizar y contar</h3>
+      <p>Elegir el gráfico correcto, diseñar el reporte, hacerlo navegable. Pasar de “tengo datos” a “encontré esto”. Cierra con la primera versión completa de tu proyecto.</p>
+      <span class="can"><b>Al final podés:</b> escribir tres hallazgos con su evidencia y defenderlos.</span>
+    </li>
+    <li>
+      <span class="dot">4</span>
+      <span class="wk">Semanas 13–15</span>
+      <h3>Publicar y defender</h3>
+      <p>Publicar, seguridad por usuario y armar tu portafolio. Y después el ensayo general: simulacro de prueba técnica con cronómetro y presentación final por videollamada, como una entrevista real.</p>
+      <span class="can"><b>Al final podés:</b> llegar a la próxima entrevista con portafolio publicado y la prueba técnica ya ensayada.</span>
+    </li>
+  </ol>
+  <p class="muted" style="font-size:.93rem; margin-top:20px">Detrás de esto hay una malla de 30 clases con el contenido y el entregable de cada una. Te la paso completa el día que arranquemos.</p>
+</section>
+
+<hr>
+
+<section>
+  <span class="label sect-label">El formato</span>
+  <h2>Cómo es cada semana</h2>
+  <p>Dos clases por semana con funciones distintas: una para construir y otra para consolidar.</p>
+  <div class="week">
+    <div class="slot sab">
+      <span class="kind">Sábado · presencial · 90 min</span>
+      <h3>Tema nuevo, manos en el teclado</h3>
+      <p>Aprendés algo nuevo construyéndolo sobre tu proyecto. Cada sábado termina con algo guardado.</p>
+    </div>
+    <div class="slot vir">
+      <span class="kind">Entre semana · virtual · 60 min</span>
+      <h3>Revisar, corregir, preparar</h3>
+      <p>Revisamos tu tarea, resolvemos los errores que te salieron y dejamos listo el tema del sábado siguiente.</p>
+    </div>
+  </div>
+  <ul class="notes">
+    <li><strong>La fecha de inicio la elegís vos.</strong> Arrancamos la semana que te quede mejor.</li>
+    <li><strong>El día de la virtual es flexible:</strong> entre martes y jueves, y lo acordamos al comenzar cada etapa según la agenda de los dos.</li>
+    <li><strong>Sábados de puente festivo:</strong> si viajás, esa clase la pasamos a virtual el miércoles anterior, sin costo extra.</li>
+    <li><strong>Fin de año:</strong> si el plan cruza diciembre, hacemos una pausa entre dos etapas para no partir ningún tema por la mitad.</li>
+  </ul>
+</section>
+
+<hr>
+
+<section>
+  <span class="label sect-label">La letra pequeña</span>
+  <h2>Lo que te va a costar</h2>
+  <p>Te lo digo sin maquillar, porque si no tenés este tiempo o este presupuesto es mejor saberlo hoy y no en la semana cinco.</p>
+  <dl class="cost">
+    <div><dt>Clases</dt><dd>2<small>por semana: sábado 90 min y virtual 60 min</small></dd></div>
+    <div><dt>Práctica sola</dt><dd>3–4 h<small>semanales, obligatorias</small></dd></div>
+    <div><dt>Tiempo total</dt><dd>~90 h<small>en unos cuatro meses</small></dd></div>
+    <div><dt>Valor</dt><dd>$40.000<small>por hora de clase</small></dd></div>
+  </dl>
+  <p style="margin-top:20px">Son unas seis horas a la semana durante quince semanas. Es real y se siente, sobre todo en las semanas 4 a 7. Pero son unos meses de tu vida a cambio de cambiar el tipo de trabajo al que podés aplicar.</p>
+  <p>Solo se cobran las horas de clase conmigo. La práctica que hacés sola no cuesta nada.</p>
+</section>
+
+<hr>
+
+<section>
+  <span class="label sect-label">Cómo trabajamos</span>
+  <h2>Cinco reglas que no se negocian</h2>
+  <ol class="rules">
+    <li><b>Vos manejás el teclado.</b><span>Yo no toco el mouse salvo para desatascarte. En la virtual, igual: la pantalla compartida es la tuya, no la mía. Verme hacerlo no te enseña a hacerlo.</span></li>
+    <li><b>La tarea es obligatoria.</b><span>Si no la hiciste, la virtual se convierte en taller de la tarea y no avanzamos. No es castigo: avanzar sobre algo que no quedó firme es perder todo lo que viene después.</span></li>
+    <li><b>Cada sábado termina con algo guardado.</b><span>Un archivo, una medida que funciona, una página publicada. Si no quedó terminado, la virtual arranca por ahí antes de avanzar.</span></li>
+    <li><b>Cuaderno de errores.</b><span>Cada mensaje de error que te salga lo anotás con su causa y su solución. Ese cuaderno es tu material de estudio para la última semana.</span></li>
+    <li><b>Alto en la semana 7.</b><span>Si el modelo no quedó sólido, frenamos y repetimos antes de seguir. Es el único punto donde vale la pena atrasarse. Si hace falta sumar clases, las acordamos antes y se cobran a la misma tarifa.</span></li>
+  </ol>
+</section>
+
+<hr>
+
+<section>
+  <span class="label sect-label">Antes de empezar</span>
+  <h2>Lo que necesitás tener</h2>
+  <ul class="plain">
+    <li><strong>Un computador con Windows.</strong> Power BI Desktop no existe para Mac. Si tenés Mac, hablamos antes porque hay que resolverlo.</li>
+    <li><strong>Power BI Desktop</strong>, que es gratis y se baja de la Microsoft Store.</li>
+    <li><strong>Excel 365 o 2021</strong> en adelante, para que tengas BUSCARX.</li>
+    <li><strong>Tu correo de la universidad.</strong> Con ese te registrás en Power BI, porque no acepta Gmail ni Outlook personal. En la semana 4 probamos si tu universidad deja publicar dashboards en la web; si no lo permite, tu portafolio igual queda completo con GitHub y un video.</li>
+    <li><strong>Una cuenta Microsoft personal</strong>, para subir a OneDrive la parte de Excel del portafolio.</li>
+    <li><strong>Buena conexión y micrófono</strong> para las virtuales, con pantalla compartida.</li>
+    <li><strong>Tu primera tarea, antes de la clase 1:</strong> armar el archivo de la cadena de tiendas con la plantilla que te paso. Prepararlo vos misma es el mejor calentamiento que hay.</li>
+  </ul>
+</section>
+
+<hr>
+
+<section>
+  <span class="label sect-label">Una aclaración</span>
+  <h2>Sobre la certificación</h2>
+  <div class="box">
+    <h3>No la necesitás para conseguir el trabajo</h3>
+    <p>Existe una certificación oficial de Microsoft para esto —se llama Power BI Data Analyst Associate— y en algún momento te la voy a explicar. Pero para una vacante de analista junior <strong>pesa mucho más un portafolio con dos dashboards que puedas defender</strong> que un diploma.</p>
+    <p style="margin-bottom:0">El plan te deja preparada para presentarla si la querés después. No la pongamos como meta ahora: la meta es la oferta de trabajo.</p>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <span class="label sect-label">El acuerdo</span>
+  <h2>Precio y forma de pago</h2>
+  <p><strong>$40.000 la hora:</strong> $60.000 la clase del sábado (90 minutos) y $40.000 la virtual (60 minutos). Como referencia, una clase particular de Power BI en Colombia ronda en promedio los $56.000 la hora.</p>
+  <p>Para que no tengas que pagar todo junto, se paga por etapa: al comenzar cada una se pagan los sábados y las virtuales de esa etapa. Así también tenés un punto natural para decidir si seguimos.</p>
+  <p class="fine"><strong>Si tenés que cancelar</strong> con al menos 24 horas de aviso, la clase se reprograma sin costo. Sin aviso, la clase se da por dictada. Lo mismo aplica para mí: si yo cancelo, se reprograma siempre.</p>
+</section>
+
+<div class="ask">
+  <h2>Lo que sí te puedo prometer</h2>
+  <p>No te puedo garantizar la oferta de trabajo; eso depende de muchas cosas que ninguno de los dos controla. Lo que sí te garantizo es que a la próxima entrevista no llegás sin método, sin portafolio y sin haber ensayado la prueba.</p>
+  <p>De tu lado, lo único que te pido es constancia: quince semanas seguidas. Si sabés que ahora no podés sostenerlo, decímelo con confianza y lo dejamos para más adelante.</p>
+  <p class="sign">Elegí la semana en que querés arrancar, decime qué hora te sirve el sábado y qué día la virtual, y empezamos.</p>
+</div>
+
+<footer>
+  <p>Propuesta preparada en septiembre de 2026. La malla detallada de las 30 clases se entrega en la primera clase.</p>
+</footer>
+
+</div>
+</body>
+</html>

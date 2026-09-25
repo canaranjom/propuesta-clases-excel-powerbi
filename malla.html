@@ -1,0 +1,581 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✳️</text></svg>">
+<title>Tu Malla de Clases</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --paper:#F6F3F4; --surface:#FFFFFF; --surface-2:#EFEAEC;
+  --ink:#1E1820; --ink-2:#544B54; --ink-3:#877E86;
+  --rule:#E0D8DC; --rule-strong:#C6BAC1;
+  --plum:#6B2F5B; --plum-deep:#57254A; --plum-soft:#F0E4EC;
+  --slate:#2E5A66; --slate-soft:#DFEBEE;
+  --on-plum:#FBF7F9;
+  --shadow:0 1px 3px rgba(30,24,32,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#161219; --surface:#1E1922; --surface-2:#261F29;
+    --ink:#F0EAEE; --ink-2:#B3A8B1; --ink-3:#847A83;
+    --rule:#312A35; --rule-strong:#463D4A;
+    --plum:#D89AC4; --plum-deep:#E7B4D6; --plum-soft:#2A1B27;
+    --slate:#7FBECC; --slate-soft:#16292F;
+    --on-plum:#1B1119;
+    --shadow:0 1px 3px rgba(0,0,0,.45);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#161219; --surface:#1E1922; --surface-2:#261F29;
+  --ink:#F0EAEE; --ink-2:#B3A8B1; --ink-3:#847A83;
+  --rule:#312A35; --rule-strong:#463D4A;
+  --plum:#D89AC4; --plum-deep:#E7B4D6; --plum-soft:#2A1B27;
+  --slate:#7FBECC; --slate-soft:#16292F;
+  --on-plum:#1B1119;
+  --shadow:0 1px 3px rgba(0,0,0,.45);
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--paper); color:var(--ink); margin:0;
+  font-family:"Karla",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:17px; line-height:1.62; -webkit-font-smoothing:antialiased;
+}
+.page{max-width:760px; margin:0 auto; padding:0 16px 90px}
+@media(min-width:600px){.page{padding:0 26px 90px}}
+
+h1,h2,h3{font-family:"Fraunces","Georgia",serif; margin:0; text-wrap:balance}
+h1{font-size:clamp(2.15rem,6vw,3.1rem); font-weight:700; line-height:1.06; letter-spacing:-.018em}
+h2{font-size:clamp(1.35rem,3.4vw,1.75rem); font-weight:600; line-height:1.2; letter-spacing:-.01em}
+h3{font-size:1.06rem; font-weight:600; letter-spacing:-.004em}
+p{margin:0 0 1.05rem} p:last-child{margin-bottom:0}
+strong{font-weight:700}
+a{color:var(--plum-deep)}
+code{font-family:ui-monospace,Consolas,monospace; font-size:.86em; background:var(--surface-2);
+  padding:1px 5px; border-radius:3px; white-space:nowrap}
+
+.label{
+  font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--plum);
+}
+header{padding:64px 0 0}
+header .label{display:block; margin-bottom:20px}
+header h1{margin-bottom:20px}
+header .stand{
+  font-size:1.16rem; color:var(--ink-2); line-height:1.55;
+  border-left:2px solid var(--plum); padding-left:18px; margin:0;
+}
+section{padding:46px 0 0}
+section > h2{margin-bottom:.85rem}
+.sect-label{display:block; margin-bottom:10px}
+.muted{color:var(--ink-2)}
+
+/* progress */
+.progress{
+  position:sticky; top:0; z-index:5; margin:34px -16px 0; padding:12px 16px;
+  background:var(--paper); border-bottom:1px solid var(--rule);
+}
+@media(min-width:600px){.progress{margin:34px -26px 0; padding:12px 26px}}
+.progress .row{display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  font-size:.9rem; margin-bottom:7px}
+.progress .row b{font-variant-numeric:tabular-nums}
+.progress .row span{color:var(--ink-3); font-size:.82rem}
+.bar{height:6px; border-radius:3px; background:var(--surface-2); overflow:hidden}
+.bar i{display:block; height:100%; width:0; background:var(--plum); transition:width .3s ease}
+
+/* rhythm */
+.week-kinds{display:grid; grid-template-columns:1fr; gap:12px; margin-top:20px}
+@media(min-width:620px){.week-kinds{grid-template-columns:1fr 1fr 1fr}}
+.wk-kind{background:var(--surface); border:1px solid var(--rule); border-radius:5px;
+  padding:16px 18px; box-shadow:var(--shadow); font-size:.93rem; color:var(--ink-2)}
+.wk-kind h3{color:var(--ink); margin:8px 0 4px; font-size:1rem}
+
+.kind{
+  display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:3px 8px; border-radius:3px;
+}
+.kind.sab{background:var(--plum-soft); color:var(--plum)}
+.kind.ent{background:var(--slate-soft); color:var(--slate)}
+.kind.tar{background:var(--surface-2); color:var(--ink-2)}
+
+/* stages */
+.stage-head{
+  margin-top:0; padding:22px 24px; border-radius:6px 6px 0 0;
+  background:var(--plum); color:var(--on-plum);
+}
+.stage-head .label{color:inherit; opacity:.85}
+.stage-head h2{color:inherit; margin:6px 0 8px}
+.stage-head p{color:inherit; opacity:.92; font-size:.97rem; margin:0}
+.stage-can{
+  background:var(--plum-soft); padding:12px 24px; font-size:.94rem;
+  border:1px solid var(--rule); border-top:none; border-radius:0 0 6px 6px;
+}
+.stage-can b{color:var(--plum)}
+
+ol.weeks{list-style:none; padding:0; margin:18px 0 0}
+.week{
+  background:var(--surface); border:1px solid var(--rule); border-radius:6px;
+  box-shadow:var(--shadow); margin-bottom:14px; overflow:hidden;
+}
+.week-title{
+  display:flex; align-items:baseline; gap:10px; padding:11px 18px;
+  background:var(--surface-2); border-bottom:1px solid var(--rule);
+  font-size:.8rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3);
+}
+.week-title .flag{margin-left:auto; color:var(--plum); letter-spacing:.06em}
+.cls{display:grid; grid-template-columns:28px 1fr; gap:4px 12px; padding:16px 18px;
+  border-bottom:1px solid var(--rule)}
+.cls:last-child{border-bottom:none}
+.cls input{
+  appearance:none; -webkit-appearance:none; margin:3px 0 0; width:22px; height:22px; cursor:pointer;
+  border:1.5px solid var(--rule-strong); border-radius:4px; background:var(--surface);
+  display:grid; place-content:center;
+}
+.cls input::after{content:""; width:11px; height:6px; border:2.5px solid var(--on-plum);
+  border-top:none; border-right:none; transform:rotate(-45deg) translate(1px,-1px); opacity:0}
+.cls input:checked{background:var(--plum); border-color:var(--plum)}
+.cls input:checked::after{opacity:1}
+.cls input:focus-visible{outline:2px solid var(--plum); outline-offset:2px}
+.cls.done h3{color:var(--ink-3); text-decoration:line-through; text-decoration-thickness:1px}
+.cls h3{margin:7px 0 4px}
+.cls p{font-size:.93rem; color:var(--ink-2); margin:0}
+.cls .out{margin-top:8px; font-size:.9rem; color:var(--ink)}
+.cls .out b{color:var(--plum)}
+.task{
+  padding:13px 18px 14px 58px; background:var(--surface-2); font-size:.9rem; color:var(--ink-2);
+  border-top:1px solid var(--rule); position:relative;
+}
+.task::before{content:"✎"; position:absolute; left:23px; top:12px; color:var(--ink-3); font-size:1rem}
+.task b{color:var(--ink)}
+
+.pause{
+  margin:6px 0 0; padding:18px 22px; border-radius:5px;
+  background:var(--slate-soft); border-left:3px solid var(--slate); font-size:.95rem;
+}
+.pause h3{color:var(--slate); margin-bottom:4px}
+
+.box{
+  background:var(--slate-soft); border-radius:5px; padding:20px 22px; margin:22px 0 0;
+  border-left:3px solid var(--slate);
+}
+.box h3{color:var(--slate); margin-bottom:.4rem}
+.box p{font-size:.96rem}
+
+ul.plain{margin:16px 0 0; padding-left:18px}
+ul.plain li{margin-bottom:.55rem; font-size:.97rem}
+ul.plain li::marker{color:var(--plum)}
+ul.plain b{color:var(--ink)}
+
+.pages{display:grid; grid-template-columns:1fr; gap:12px; margin-top:20px}
+@media(min-width:620px){.pages{grid-template-columns:1fr 1fr 1fr}}
+.pg{background:var(--surface); border:1px solid var(--rule); border-radius:5px;
+  padding:16px 18px; box-shadow:var(--shadow)}
+.pg .n{font-family:"Fraunces",Georgia,serif; font-size:1.5rem; font-weight:600; color:var(--plum); line-height:1}
+.pg h3{margin:8px 0 4px}
+.pg p{font-size:.92rem; color:var(--ink-2)}
+
+.reset{margin-top:14px; background:none; border:none; padding:0; font:inherit; font-size:.85rem;
+  color:var(--ink-3); text-decoration:underline; cursor:pointer}
+
+footer{margin-top:44px; padding-top:20px; border-top:1px solid var(--rule);
+  font-size:.86rem; color:var(--ink-3)}
+</style>
+</head>
+<body>
+<div class="page">
+
+<header>
+  <span class="label">Excel y Power BI · 15 semanas</span>
+  <h1>Tu malla de clases</h1>
+  <p class="stand">Las 30 clases, una por una: qué vemos, qué te llevás de cada clase y qué hacés entre una y otra. Guardá este enlace, porque lo vamos a usar todo el curso.</p>
+</header>
+
+<div class="progress" aria-live="polite">
+  <div class="row"><b id="pcount">0 de 30 clases</b><span>Marcá cada clase cuando la termines</span></div>
+  <div class="bar"><i id="pbar"></i></div>
+</div>
+
+<section>
+  <span class="label sect-label">Cómo leerla</span>
+  <h2>Cada semana tiene tres partes</h2>
+  <p class="muted">Todo se trabaja sobre el mismo caso: una cadena de tiendas con sucursales en Bogotá, Medellín, Cali y Barranquilla. Cada semana el archivo queda más limpio y más útil, y al final ese archivo es tu portafolio.</p>
+  <div class="week-kinds">
+    <div class="wk-kind"><span class="kind sab">Sábado · 90 min</span><h3>Tema nuevo</h3>Construís algo nuevo sobre tu proyecto. Siempre termina con algo guardado.</div>
+    <div class="wk-kind"><span class="kind ent">Entre semana · 60 min</span><h3>Revisar y consolidar</h3>Revisamos tu tarea, resolvemos errores y vemos un tema corto.</div>
+    <div class="wk-kind"><span class="kind tar">Tarea · 30–45 min</span><h3>Práctica sola</h3>Es obligatoria. Sin tarea, la clase de entre semana se vuelve taller y no avanzamos.</div>
+  </div>
+  <div class="box">
+    <h3>Tu cuaderno de errores</h3>
+    <p>Desde la clase 1, cada mensaje de error que te salga lo anotás con tres cosas: <strong>qué decía, por qué pasó y cómo lo arreglaste</strong>. Puede ser un documento de Word o una hoja de Excel. En la semana 15 ese cuaderno es tu material de estudio.</p>
+  </div>
+</section>
+
+<!-- ETAPA 1 -->
+<section id="etapa-1">
+  <div class="stage-head">
+    <span class="label">Etapa 1 · Semanas 1–3</span>
+    <h2>Excel, pero solo lo que sirve</h2>
+    <p>Solo lo de Excel que después se usa en Power BI: datos limpios, búsquedas, tablas dinámicas y Power Query.</p>
+  </div>
+  <div class="stage-can"><b>Al final podés:</b> tomar un archivo sucio, dejarlo listo y armar un tablero de 4 KPI en una hoja.</div>
+
+  <ol class="weeks">
+    <li class="week">
+      <div class="week-title">Semana 1</div>
+      <div class="cls" data-id="1s"><input type="checkbox" aria-label="Clase 1 terminada"><div>
+        <span class="kind sab">Sábado · Clase 1</span>
+        <h3>Datos que sirven</h3>
+        <p>Tablas estructuradas (<code>Ctrl+T</code>), tipos de dato, fechas y decimales en formato colombiano, formato como dato vs. formato como adorno, y por qué las celdas combinadas son tus enemigas.</p>
+        <p class="out"><b>Te llevás:</b> el archivo base convertido en tabla y sin errores de tipo.</p>
+      </div></div>
+      <div class="cls" data-id="1e"><input type="checkbox" aria-label="Clase 2 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 2</span>
+        <h3>Funciones de decisión</h3>
+        <p><code>SI</code>, <code>SI.CONJUNTO</code>, <code>SUMAR.SI.CONJUNTO</code> y <code>CONTAR.SI.CONJUNTO</code> para clasificar clientes y productos.</p>
+        <p class="out"><b>Te llevás:</b> columnas de segmento y de cumplimiento.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> convertir las hojas de las sucursales en tablas y corregir fechas y decimales. Anotar en el cuaderno cada cosa rara que encuentres en los datos.</div>
+    </li>
+
+    <li class="week">
+      <div class="week-title">Semana 2</div>
+      <div class="cls" data-id="2s"><input type="checkbox" aria-label="Clase 3 terminada"><div>
+        <span class="kind sab">Sábado · Clase 3</span>
+        <h3>Búsquedas</h3>
+        <p><code>BUSCARX</code>, <code>ÍNDICE</code> + <code>COINCIDIR</code> y <code>SI.ERROR</code>. Cruzar las ventas contra el catálogo y contra las metas.</p>
+        <p class="out"><b>Te llevás:</b> ventas enriquecidas con su categoría y su meta.</p>
+      </div></div>
+      <div class="cls" data-id="2e"><input type="checkbox" aria-label="Clase 4 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 4</span>
+        <h3>Tablas dinámicas I</h3>
+        <p>Filas, columnas, valores y filtros. Agrupar por fecha, porcentaje del total y segmentadores.</p>
+        <p class="out"><b>Te llevás:</b> un resumen de ventas por región y mes.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> con la tabla dinámica, responder en una frase qué región creció más y en qué mes. Escribir el número, no solo el nombre.</div>
+    </li>
+
+    <li class="week">
+      <div class="week-title">Semana 3</div>
+      <div class="cls" data-id="3s"><input type="checkbox" aria-label="Clase 5 terminada"><div>
+        <span class="kind sab">Sábado · Clase 5</span>
+        <h3>Tablas dinámicas II</h3>
+        <p>Campos calculados, gráficos dinámicos y formato condicional con intención. Tres KPI: ticket promedio, margen y cumplimiento.</p>
+        <p class="out"><b>Te llevás:</b> un mini-tablero de una hoja con 4 KPI.</p>
+      </div></div>
+      <div class="cls" data-id="3e"><input type="checkbox" aria-label="Clase 6 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 6</span>
+        <h3>Power Query en Excel</h3>
+        <p>Importar desde una carpeta, pasos aplicados, anular dinamización, combinar y anexar. Este es el puente hacia Power BI.</p>
+        <p class="out"><b>Te llevás:</b> una consulta que une los archivos de todas las sucursales.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> agregar un archivo nuevo a la carpeta y darle <em>Actualizar</em>. Si la consulta lo suma sola, funcionó. Además, instalar Power BI Desktop antes del sábado.</div>
+    </li>
+  </ol>
+</section>
+
+<!-- ETAPA 2 -->
+<section id="etapa-2">
+  <div class="stage-head">
+    <span class="label">Etapa 2 · Semanas 4–7</span>
+    <h2>Modelar</h2>
+    <p>Es la parte más difícil y la que más te va a diferenciar en una entrevista. Por eso tiene una semana extra de práctica y un alto de revisión al final.</p>
+  </div>
+  <div class="stage-can"><b>Al final podés:</b> explicar por qué una tabla plana rompe los porcentajes, y arreglarlo.</div>
+
+  <ol class="weeks">
+    <li class="week">
+      <div class="week-title">Semana 4</div>
+      <div class="cls" data-id="4s"><input type="checkbox" aria-label="Clase 7 terminada"><div>
+        <span class="kind sab">Sábado · Clase 7</span>
+        <h3>Tu primer reporte en 45 minutos</h3>
+        <p>Recorrido por Power BI Desktop, conectarlo al Excel de la etapa 1 y hacer tres visuales. Registro con el correo de la universidad y prueba de “Publicar en la web” con un reporte de ensayo.</p>
+        <p class="out"><b>Te llevás:</b> un .pbix funcionando y saber si tu universidad deja publicar.</p>
+      </div></div>
+      <div class="cls" data-id="4e"><input type="checkbox" aria-label="Clase 8 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 8</span>
+        <h3>Power Query a fondo</h3>
+        <p>Columnas condicionales, agrupar, combinar y anexar, parámetros, referencia vs. duplicado, perfilado de columnas y errores de importación.</p>
+        <p class="out"><b>Te llevás:</b> consultas de hechos y de dimensiones separadas.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> separar la tabla de ventas en una tabla de hechos y tres dimensiones: producto, cliente y sucursal.</div>
+    </li>
+
+    <li class="week">
+      <div class="week-title">Semana 5</div>
+      <div class="cls" data-id="5s"><input type="checkbox" aria-label="Clase 9 terminada"><div>
+        <span class="kind sab">Sábado · Clase 9</span>
+        <h3>Modelo estrella</h3>
+        <p>Hechos vs. dimensiones, por qué la tabla plana rompe los porcentajes, cardinalidad, dirección del filtro y llaves.</p>
+        <p class="out"><b>Te llevás:</b> un modelo con 1 tabla de hechos y 4 dimensiones.</p>
+      </div></div>
+      <div class="cls" data-id="5e"><input type="checkbox" aria-label="Clase 10 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 10</span>
+        <h3>Tabla calendario</h3>
+        <p>Crearla, marcarla como tabla de fechas, jerarquías y dimensiones que cumplen más de un rol.</p>
+        <p class="out"><b>Te llevás:</b> el calendario conectado y con jerarquía.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> dibujar tu modelo estrella a mano y escribir con tus palabras, en cinco líneas, por qué la tabla plana rompe los porcentajes.</div>
+    </li>
+
+    <li class="week">
+      <div class="week-title">Semana 6</div>
+      <div class="cls" data-id="6s"><input type="checkbox" aria-label="Clase 11 terminada"><div>
+        <span class="kind sab">Sábado · Clase 11</span>
+        <h3>DAX I: contexto</h3>
+        <p>Columna calculada vs. medida, contexto de fila y de filtro, <code>SUM</code>, <code>COUNTROWS</code>, <code>DISTINCTCOUNT</code> y <code>DIVIDE</code>.</p>
+        <p class="out"><b>Te llevás:</b> una carpeta con 8 medidas base.</p>
+      </div></div>
+      <div class="cls" data-id="6e"><input type="checkbox" aria-label="Clase 12 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 12</span>
+        <h3>DAX II: CALCULATE</h3>
+        <p><code>CALCULATE</code>, <code>ALL</code> / <code>REMOVEFILTERS</code>, <code>FILTER</code> y <code>VAR</code>. Y la pregunta clásica: “¿por qué mi porcentaje da 100% en todas las filas?”.</p>
+        <p class="out"><b>Te llevás:</b> medidas de participación y de porcentaje sobre el total.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> probar cada medida en una matriz por región y por categoría. Si algún número no te cuadra, llevá la pregunta a la clase.</div>
+    </li>
+
+    <li class="week">
+      <div class="week-title">Semana 7 <span class="flag">⚑ Alto de revisión</span></div>
+      <div class="cls" data-id="7s"><input type="checkbox" aria-label="Clase 13 terminada"><div>
+        <span class="kind sab">Sábado · Clase 13</span>
+        <h3>Taller de DAX integrado</h3>
+        <p>Un caso nuevo que junta modelo, calendario y medidas con <code>CALCULATE</code>. No hay guía paso a paso: lo resolvés vos y yo solo te desbloqueo si te trabás.</p>
+        <p class="out"><b>Te llevás:</b> un modelo y 10 medidas resueltas por tu cuenta.</p>
+      </div></div>
+      <div class="cls" data-id="7e"><input type="checkbox" aria-label="Clase 14 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 14</span>
+        <h3>Alto de revisión</h3>
+        <p>Me explicás en voz alta tu modelo y tres medidas. Si todavía no está firme, repetimos el bloque antes de seguir. Es el único punto del curso donde vale la pena atrasarse.</p>
+        <p class="out"><b>Te llevás:</b> la decisión de seguir o repetir.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> preparar esa explicación de cinco minutos y ensayarla una vez en voz alta antes de la clase.</div>
+    </li>
+  </ol>
+</section>
+
+<!-- ETAPA 3 -->
+<section id="etapa-3">
+  <div class="stage-head">
+    <span class="label">Etapa 3 · Semanas 8–12</span>
+    <h2>Visualizar y contar</h2>
+    <p>Pasar de “tengo datos” a “encontré esto”. Termina con la primera versión completa de tu proyecto.</p>
+  </div>
+  <div class="stage-can"><b>Al final podés:</b> escribir tres hallazgos con su evidencia y defenderlos.</div>
+
+  <ol class="weeks">
+    <li class="week">
+      <div class="week-title">Semana 8</div>
+      <div class="cls" data-id="8s"><input type="checkbox" aria-label="Clase 15 terminada"><div>
+        <span class="kind sab">Sábado · Clase 15</span>
+        <h3>DAX III: el tiempo</h3>
+        <p>Acumulado del año y del mes, mismo periodo del año anterior, crecimiento %, medidas semiaditivas y meta vs. real.</p>
+        <p class="out"><b>Te llevás:</b> el bloque de medidas de tendencia.</p>
+      </div></div>
+      <div class="cls" data-id="8e"><input type="checkbox" aria-label="Clase 16 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 16</span>
+        <h3>Elegir el visual correcto</h3>
+        <p>Barra, línea, dispersión y matriz. Por qué la torta estorba, KPI que no mienten y el problema de los ejes truncados.</p>
+        <p class="out"><b>Te llevás:</b> un rediseño crítico de tu tablero de Excel.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> rehacer en Power BI el tablero de 4 KPI de la semana 3, ahora con comparación contra el año anterior.</div>
+    </li>
+
+    <li class="week">
+      <div class="week-title">Semana 9</div>
+      <div class="cls" data-id="9s"><input type="checkbox" aria-label="Clase 17 terminada"><div>
+        <span class="kind sab">Sábado · Clase 17</span>
+        <h3>Diseño de reporte</h3>
+        <p>Retícula, jerarquía visual, temas, accesibilidad, formato condicional, tooltips y versión para celular.</p>
+        <p class="out"><b>Te llevás:</b> la página “Resumen ejecutivo” con un tema propio.</p>
+      </div></div>
+      <div class="cls" data-id="9e"><input type="checkbox" aria-label="Clase 18 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 18</span>
+        <h3>Interactividad</h3>
+        <p>Segmentadores sincronizados, interacciones entre visuales, marcadores, panel de selección, obtener detalles y navegación.</p>
+        <p class="out"><b>Te llevás:</b> navegación entre 3 páginas.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> armar el esqueleto de las páginas “Producto” y “Regional” con la navegación funcionando, aunque todavía estén vacías.</div>
+    </li>
+
+    <li class="week">
+      <div class="week-title">Semana 10</div>
+      <div class="cls" data-id="10s"><input type="checkbox" aria-label="Clase 19 terminada"><div>
+        <span class="kind sab">Sábado · Clase 19</span>
+        <h3>Contar la historia</h3>
+        <p>La respuesta primero, títulos que dicen el hallazgo, anotaciones y la regla de las 3 preguntas por tablero.</p>
+        <p class="out"><b>Te llevás:</b> todos tus títulos reescritos como conclusiones.</p>
+      </div></div>
+      <div class="cls" data-id="10e"><input type="checkbox" aria-label="Clase 20 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 20</span>
+        <h3>Encontrar el hallazgo</h3>
+        <p>Líneas de referencia y previsión, agrupar en rangos, anomalías, el panel “Analizar”, influenciadores clave y cálculos visuales.</p>
+        <p class="out"><b>Te llevás:</b> tres hallazgos con su evidencia.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> escribir cada hallazgo en una sola frase que tenga un número concreto. Ejemplo: “Cali vende 18% más que el año pasado, pero con 4 puntos menos de margen”.</div>
+    </li>
+
+    <li class="week">
+      <div class="week-title">Semana 11</div>
+      <div class="cls" data-id="11s"><input type="checkbox" aria-label="Clase 21 terminada"><div>
+        <span class="kind sab">Sábado · Clase 21</span>
+        <h3>Proyecto, versión 1</h3>
+        <p>La primera versión completa del reporte de 3 páginas, construida por vos.</p>
+        <p class="out"><b>Te llevás:</b> el .pbix v1 de tu proyecto.</p>
+      </div></div>
+      <div class="cls" data-id="11e"><input type="checkbox" aria-label="Clase 22 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 22</span>
+        <h3>Retroalimentación del proyecto</h3>
+        <p>Revisión crítica de títulos, visuales, medidas e historia, como la haría un jefe exigente.</p>
+        <p class="out"><b>Te llevás:</b> una lista de ajustes ordenada por prioridad.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> hacer los tres primeros ajustes de la lista.</div>
+    </li>
+
+    <li class="week">
+      <div class="week-title">Semana 12</div>
+      <div class="cls" data-id="12s"><input type="checkbox" aria-label="Clase 23 terminada"><div>
+        <span class="kind sab">Sábado · Clase 23</span>
+        <h3>Que no se arrastre</h3>
+        <p>Analizador de rendimiento, vista de consulta DAX, quitar columnas que sobran, reducir el detalle, e Import vs. DirectQuery vs. Direct Lake.</p>
+        <p class="out"><b>Te llevás:</b> el proyecto optimizado, con los tiempos medidos antes y después.</p>
+      </div></div>
+      <div class="cls" data-id="12e"><input type="checkbox" aria-label="Clase 24 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 24</span>
+        <h3>Portafolio I</h3>
+        <p>Cómo se organiza el repositorio de GitHub, un README con la pregunta de negocio y los hallazgos, y las capturas de pantalla.</p>
+        <p class="out"><b>Te llevás:</b> el repositorio creado, con un borrador del README.</p>
+      </div></div>
+    </li>
+  </ol>
+
+  <div class="pause">
+    <h3>Pausa de fin de año</h3>
+    Si el curso cruza diciembre, paramos entre la etapa 3 y la 4 para no partir ningún tema. <strong>Tarea de vacaciones:</strong> terminar el repositorio de GitHub y repasar todas las medidas DAX de las etapas 2 y 3.
+  </div>
+</section>
+
+<!-- ETAPA 4 -->
+<section id="etapa-4">
+  <div class="stage-head">
+    <span class="label">Etapa 4 · Semanas 13–15</span>
+    <h2>Publicar y defender</h2>
+    <p>Lo que separa un archivo guardado en tu computador de un producto. Y después, el ensayo general de la entrevista.</p>
+  </div>
+  <div class="stage-can"><b>Al final podés:</b> llegar a la próxima entrevista con el portafolio publicado y la prueba técnica ya ensayada.</div>
+
+  <ol class="weeks">
+    <li class="week">
+      <div class="week-title">Semana 13</div>
+      <div class="cls" data-id="13s"><input type="checkbox" aria-label="Clase 25 terminada"><div>
+        <span class="kind sab">Sábado · Clase 25</span>
+        <h3>El servicio y la publicación</h3>
+        <p>Activar la prueba gratuita de Fabric. Áreas de trabajo, apps, actualización programada y gateway. Una copia pública del proyecto, y “Publicar en la web” si tu universidad lo permite.</p>
+        <p class="out"><b>Te llevás:</b> el proyecto publicado en el servicio.</p>
+      </div></div>
+      <div class="cls" data-id="13e"><input type="checkbox" aria-label="Clase 26 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 26</span>
+        <h3>Seguridad</h3>
+        <p>Seguridad por fila (RLS): roles, reglas y “Ver como rol”. Permisos en el servicio y etiquetas de confidencialidad.</p>
+        <p class="out"><b>Te llevás:</b> un rol “Gerente regional” probado.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> entrar con “Ver como rol” como gerente de cada sucursal y comprobar que cada uno ve solo la suya.</div>
+    </li>
+
+    <li class="week">
+      <div class="week-title">Semana 14</div>
+      <div class="cls" data-id="14s"><input type="checkbox" aria-label="Clase 27 terminada"><div>
+        <span class="kind sab">Sábado · Clase 27</span>
+        <h3>Proyecto integrador cronometrado</h3>
+        <p>Un dataset nuevo, de principio a fin y con reloj. Vos manejás el teclado y yo solo te desbloqueo.</p>
+        <p class="out"><b>Te llevás:</b> un segundo .pbix completo, hecho por tu cuenta.</p>
+      </div></div>
+      <div class="cls" data-id="14e"><input type="checkbox" aria-label="Clase 28 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 28</span>
+        <h3>Portafolio II</h3>
+        <p>Revisamos tu video de 2 a 3 minutos, el PDF exportado, la publicación en “Destacados” de LinkedIn y el enlace en tu hoja de vida.</p>
+        <p class="out"><b>Te llevás:</b> el portafolio público y enlazado.</p>
+      </div></div>
+      <div class="task"><b>Tarea (antes de la clase 28):</b> grabar el video recorriendo tu dashboard y exportar el PDF.</div>
+    </li>
+
+    <li class="week">
+      <div class="week-title">Semana 15 <span class="flag">Cierre</span></div>
+      <div class="cls" data-id="15s"><input type="checkbox" aria-label="Clase 29 terminada"><div>
+        <span class="kind sab">Sábado · Clase 29</span>
+        <h3>Simulacro técnico</h3>
+        <p>Un Excel sucio, 60 minutos y tres preguntas de negocio. Después, una ronda de preguntas conceptuales.</p>
+        <p class="out"><b>Te llevás:</b> la prueba resuelta y una lista de lo que te falta reforzar.</p>
+      </div></div>
+      <div class="cls" data-id="15e"><input type="checkbox" aria-label="Clase 30 terminada"><div>
+        <span class="kind ent">Entre semana · Clase 30</span>
+        <h3>Presentación final</h3>
+        <p>Diez minutos por videollamada frente a un “comité”, igual que en una entrevista virtual. Con preguntas incómodas y retroalimentación sin anestesia.</p>
+        <p class="out"><b>Te llevás:</b> tu guion de 90 segundos, ensayado.</p>
+      </div></div>
+      <div class="task"><b>Tarea:</b> repasar el cuaderno de errores completo y ensayar el guion de 90 segundos hasta que salga natural. El orden es contexto → pregunta → qué hice → qué encontré → qué cambia.</div>
+    </li>
+  </ol>
+</section>
+
+<section>
+  <span class="label sect-label">Lo que construís</span>
+  <h2>Tu proyecto al final</h2>
+  <p class="muted">Un reporte de tres páginas sobre la cadena de tiendas, que es lo que vas a mostrar en la entrevista.</p>
+  <div class="pages">
+    <div class="pg"><span class="n">1</span><h3>Resumen ejecutivo</h3><p>Ventas, margen, ticket promedio y cumplimiento de meta, con tendencia y comparación contra el año anterior.</p></div>
+    <div class="pg"><span class="n">2</span><h3>Producto</h3><p>Qué categorías crecen, cuáles pierden margen por descuentos, y el detalle con un clic.</p></div>
+    <div class="pg"><span class="n">3</span><h3>Regional</h3><p>El ranking de sucursales, con seguridad para que cada gerente vea solo la suya.</p></div>
+  </div>
+  <ul class="plain">
+    <li><b>Dos versiones del .pbix:</b> la completa con seguridad, para mostrar en la entrevista, y una copia pública sin roles.</li>
+    <li><b>Un README de una página</b> con la pregunta de negocio, las fuentes, los supuestos, tres hallazgos y una recomendación.</li>
+    <li><b>Un portafolio</b> en GitHub con video y PDF, enlazado desde LinkedIn y tu hoja de vida. Si tu universidad lo permite, también el dashboard interactivo en la web.</li>
+  </ul>
+  <button class="reset" id="reset" type="button">Borrar las marcas de avance</button>
+</section>
+
+<footer>
+  <p>Malla del curso de Excel y Power BI · 15 semanas · 30 clases virtuales. Las casillas se guardan solo en este navegador.</p>
+</footer>
+
+</div>
+<script>
+(function(){
+  var KEY = "malla-excel-pbi-v1";
+  var boxes = Array.prototype.slice.call(document.querySelectorAll(".cls input"));
+  var saved = {};
+  try { saved = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch(e) { saved = {}; }
+
+  function render(){
+    var done = 0;
+    boxes.forEach(function(b){
+      var row = b.closest(".cls");
+      row.classList.toggle("done", b.checked);
+      if (b.checked) done++;
+    });
+    document.getElementById("pcount").textContent = done + " de " + boxes.length + " clases";
+    document.getElementById("pbar").style.width = (100 * done / boxes.length) + "%";
+  }
+  function save(){
+    var s = {};
+    boxes.forEach(function(b){ if (b.checked) s[b.closest(".cls").dataset.id] = 1; });
+    try { localStorage.setItem(KEY, JSON.stringify(s)); } catch(e) {}
+  }
+
+  boxes.forEach(function(b){
+    b.checked = !!saved[b.closest(".cls").dataset.id];
+    b.addEventListener("change", function(){ render(); save(); });
+  });
+  document.getElementById("reset").addEventListener("click", function(){
+    boxes.forEach(function(b){ b.checked = false; });
+    render(); save();
+  });
+  render();
+})();
+</script>
+</body>
+</html>
